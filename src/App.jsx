@@ -351,4 +351,346 @@ function App() {
           <div className="topbar-right">
             <span className="preview-pill"><span /> WEBSITE PREVIEW</span>
             <button className="language-button" aria-label="Bahasa Indonesia">
-              <Globe2 size
+              <Globe2 size={16} /> ID
+            </button>
+            <button className="login-button" onClick={() => setNotice("Fitur login akan diaktifkan setelah sistem member dibuat.")}>
+              <LockKeyhole size={15} /> Login
+            </button>
+          </div>
+        </header>
+
+        {notice && (
+          <div className="notice-banner">
+            <span>{notice}</span>
+            <button onClick={() => setNotice("")} aria-label="Tutup pemberitahuan">
+              <X size={16} />
+            </button>
+          </div>
+        )}
+
+        {activeTab === "dashboard" && (
+          <div className="page-content">
+            <section className="welcome-banner">
+              <div className="welcome-orb orb-one" />
+              <div className="welcome-orb orb-two" />
+              <div className="welcome-content">
+                <div className="welcome-eyebrow">
+                  <Sparkles size={14} /> INTELLIGENCE FOR GOLD TRADERS
+                </div>
+                <h1>Trade with <span>Intelligence.</span></h1>
+                <p>
+                  Satu workspace untuk chart XAUUSD, analisis pasar, sinyal,
+                  dan pembelajaran Smart Money Concept.
+                </p>
+                <div className="welcome-actions">
+                  <button className="primary-button" onClick={() => navigate("signals")}>
+                    <Activity size={16} /> Lihat Signal <ChevronRight size={16} />
+                  </button>
+                  <button className="secondary-button" onClick={() => setShowPackages(true)}>
+                    <Crown size={16} /> Aktivasi Premium
+                  </button>
+                </div>
+              </div>
+              <div className="hero-coin" aria-hidden="true">
+                <div className="hero-coin-inner">
+                  <span>Au</span>
+                  <Sparkles size={25} />
+                </div>
+                <div className="coin-caption">GOLD INTELLIGENCE</div>
+              </div>
+              <div className="banner-bottom-line" />
+            </section>
+
+            <section className="metric-grid">
+              <article className="metric-card">
+                <div className="metric-top">
+                  <span>INSTRUMEN</span>
+                  <div className="metric-icon"><Activity size={17} /></div>
+                </div>
+                <strong>XAUUSD</strong>
+                <span className="metric-caption">Gold / US Dollar</span>
+              </article>
+              <article className="metric-card">
+                <div className="metric-top">
+                  <span>CHART</span>
+                  <div className="metric-icon"><TrendingUp size={17} /></div>
+                </div>
+                <strong>TradingView</strong>
+                <span className="metric-caption">Grafik eksternal</span>
+              </article>
+              <article className="metric-card">
+                <div className="metric-top">
+                  <span>STATUS DATA</span>
+                  <div className="metric-icon"><RefreshCw size={17} /></div>
+                </div>
+                <strong className="metric-demo">Mode Demo</strong>
+                <span className="metric-caption">Menunggu koneksi bot</span>
+              </article>
+              <article className="metric-card">
+                <div className="metric-top">
+                  <span>AKUN</span>
+                  <div className="metric-icon"><ShieldCheck size={17} /></div>
+                </div>
+                <strong>Guest</strong>
+                <span className="metric-caption">Belum login</span>
+              </article>
+            </section>
+
+            <section className="content-section chart-section">
+              <SectionHeading
+                eyebrow="MARKET OVERVIEW"
+                title="Gold Market"
+                description="Pantau grafik XAUUSD melalui TradingView."
+                action={
+                  <span className="section-chip"><span /> CHART EXTERNAL</span>
+                }
+              />
+              <TradingViewChart />
+            </section>
+
+            <section className="content-section">
+              <SectionHeading
+                eyebrow="SIGNAL CENTER"
+                title="Signal Terbaru"
+                description="Contoh tampilan sinyal. Belum berasal dari bot Telegram."
+                action={
+                  <button className="text-button" onClick={() => navigate("signals")}>
+                    Lihat semua <ChevronRight size={15} />
+                  </button>
+                }
+              />
+              <div className="signal-grid">
+                {demoSignals.map((signal) => (
+                  <SignalCard key={signal.id} signal={signal} />
+                ))}
+              </div>
+            </section>
+
+            <section className="content-section">
+              <SectionHeading
+                eyebrow="FUNDAMENTAL WATCH"
+                title="Market Insights"
+                description="Informasi edukasi yang membantu memahami faktor penggerak emas."
+                action={
+                  <button className="text-button" onClick={() => navigate("news")}>
+                    Selengkapnya <ChevronRight size={15} />
+                  </button>
+                }
+              />
+              <div className="news-grid">
+                {demoNews.slice(0, 2).map((item) => (
+                  <article className="news-card" key={item.title}>
+                    <div className="news-card-top">
+                      <span className="news-category">{item.category}</span>
+                      <span className="news-badge">{item.impact}</span>
+                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                    <div className="news-card-footer">
+                      <span><Newspaper size={14} /> Materi informasi</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="premium-banner">
+              <div className="premium-symbol"><Crown size={24} /></div>
+              <div className="premium-copy">
+                <span>AI ASSISTANTS GOLD PREMIUM</span>
+                <h2>Upgrade pengalaman trading kamu.</h2>
+                <p>Informasi sinyal, chart, dan edukasi dalam satu dashboard.</p>
+              </div>
+              <button className="primary-button" onClick={() => setShowPackages(true)}>
+                Lihat Paket <ChevronRight size={16} />
+              </button>
+            </section>
+          </div>
+        )}
+
+        {activeTab === "signals" && (
+          <div className="page-content inner-page">
+            <SectionHeading
+              eyebrow="SIGNAL CENTER"
+              title="Signal XAUUSD"
+              description="Panel ini masih menggunakan data demo. Tidak ada sinyal real dari bot yang ditampilkan."
+              action={<span className="demo-status">DEMO MODE</span>}
+            />
+            <div className="signal-warning">
+              <Activity size={18} />
+              <div>
+                <strong>Integrasi Telegram belum aktif</strong>
+                <p>Setelah website siap, repository bot akan diperbarui untuk mengirim sinyal ke API website.</p>
+              </div>
+            </div>
+            <div className="signal-grid">
+              {demoSignals.map((signal) => (
+                <SignalCard key={signal.id} signal={signal} />
+              ))}
+            </div>
+            <div className="content-section history-section">
+              <SectionHeading
+                eyebrow="TRADE LOG"
+                title="Riwayat Sinyal"
+                description="Riwayat real akan muncul setelah API dan penyimpanan sinyal terhubung."
+              />
+              <div className="empty-state">
+                <CalendarDays size={30} />
+                <strong>Belum ada riwayat real</strong>
+                <p>Data demo tidak disimpan sebagai histori trading.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "news" && (
+          <div className="page-content inner-page">
+            <SectionHeading
+              eyebrow="FUNDAMENTAL INTELLIGENCE"
+              title="Fundamental XAUUSD"
+              description="Informasi edukasi berbahasa Indonesia mengenai faktor yang dapat memengaruhi harga emas."
+            />
+            <div className="signal-warning">
+              <Newspaper size={18} />
+              <div>
+                <strong>Belum terhubung ke feed berita real-time</strong>
+                <p>Konten di bawah merupakan materi edukasi, bukan berita terbaru atau kalender ekonomi langsung.</p>
+              </div>
+            </div>
+            <div className="news-grid news-grid-large">
+              {demoNews.map((item) => (
+                <article className="news-card" key={item.title}>
+                  <div className="news-card-top">
+                    <span className="news-category">{item.category}</span>
+                    <span className="news-badge">{item.impact}</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                  <div className="news-card-footer">
+                    <span><Globe2 size={14} /> Edukasi pasar</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "education" && (
+          <div className="page-content inner-page">
+            <SectionHeading
+              eyebrow="KNOWLEDGE CENTER"
+              title="Materi Trading"
+              description="Bangun pemahaman struktur pasar, SMC, dan manajemen risiko."
+            />
+            <input
+              className="lesson-search"
+              value={searchLesson}
+              onChange={(event) => setSearchLesson(event.target.value)}
+              placeholder="Cari materi..."
+              aria-label="Cari materi"
+            />
+            <div className="lesson-grid">
+              {filteredLessons.map((lesson) => {
+                const LessonIcon = lesson.icon;
+                return (
+                  <article className="lesson-card" key={lesson.title}>
+                    <div className="lesson-icon"><LessonIcon size={22} /></div>
+                    <span className="news-category">{lesson.level}</span>
+                    <h3>{lesson.title}</h3>
+                    <p>{lesson.desc}</p>
+                    <button
+                      className="text-button"
+                      onClick={() => setNotice("Materi lengkap akan ditambahkan pada tahap pengembangan berikutnya.")}
+                    >
+                      Segera hadir <ChevronRight size={15} />
+                    </button>
+                  </article>
+                );
+              })}
+              {filteredLessons.length === 0 && (
+                <div className="empty-state">
+                  <BookOpen size={28} />
+                  <strong>Materi tidak ditemukan</strong>
+                  <p>Coba gunakan kata kunci lain.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <footer className="main-footer">
+          <div className="footer-brand">
+            <div className="brand-mark footer-mark"><span>Au</span></div>
+            <span>AI ASSISTANTS GOLD</span>
+          </div>
+          <p>Platform informasi dan edukasi XAUUSD.</p>
+          <span className="footer-disclaimer">
+            Trading memiliki risiko. Informasi pada situs ini bukan jaminan keuntungan.
+          </span>
+        </footer>
+      </main>
+
+      {showPackages && (
+        <div className="modal-backdrop" onClick={() => setShowPackages(false)}>
+          <div
+            className="package-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="package-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              className="modal-close icon-button"
+              onClick={() => setShowPackages(false)}
+              aria-label="Tutup"
+            >
+              <X size={20} />
+            </button>
+            <div className="modal-symbol"><Crown size={25} /></div>
+            <div className="eyebrow">MEMBERSHIP</div>
+            <h2 id="package-title">Aktivasi AI Gold</h2>
+            <p className="modal-description">
+              Pilih durasi paket yang sesuai dengan kebutuhanmu.
+            </p>
+            <div className="package-list">
+              {packages.map((item) => (
+                <button
+                  key={item.id}
+                  className={`package-option ${selectedPackage === item.id ? "selected" : ""}`}
+                  onClick={() => setSelectedPackage(item.id)}
+                >
+                  <span className="package-radio">
+                    {selectedPackage === item.id && <span />}
+                  </span>
+                  <span className="package-details">
+                    <strong>{item.name}</strong>
+                    <small>{item.duration} akses</small>
+                  </span>
+                  <strong className="package-price">{formatRupiah(item.price)}</strong>
+                </button>
+              ))}
+            </div>
+            <div className="package-summary">
+              <span>Paket dipilih</span>
+              <strong>{selected?.name} · {formatRupiah(selected?.price ?? 0)}</strong>
+            </div>
+            <button
+              className="primary-button modal-submit"
+              onClick={() => {
+                setShowPackages(false);
+                setNotice(`Paket ${selected?.name} dipilih. Sistem QRIS, upload bukti, dan persetujuan admin belum diaktifkan.`);
+              }}
+            >
+              <Wallet size={17} /> Pilih Paket <ChevronRight size={17} />
+            </button>
+            <p className="modal-footnote">
+              <LockKeyhole size={13} /> Pembayaran belum diaktifkan pada versi preview.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
